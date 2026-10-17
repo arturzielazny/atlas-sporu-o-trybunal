@@ -1,0 +1,10 @@
+{
+  "name": "atlas-sporu-o-trybunal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interaktywny przewodnik po historii konfliktu o Trybunał Konstytucyjny.",
+  "scripts": {
+    "dev": "python3 -m http.server 4173 --directory dist --bind 0.0.0.0",
+    "check": "node --check dist/app.js && node --check dist/data.js"
+  }
+}

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5ef">
+  <meta name="description" content="Jak zaczął się i dlaczego trwa konflikt o Trybunał Konstytucyjny? Interaktywna oś czasu 1982–2026, pięć spornych miejsc, mapa uczestników i dokumenty źródłowe.">
+  <title>Trybunał. Anatomia konfliktu — Punkt Konstytucji</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#historia">Przejdź do treści</a>
+  <div class="reading-progress" aria-hidden="true"><span id="reading-progress"></span></div>
+  <header class="site-header wrap">
+    <a class="brand" href="#" aria-label="Punkt Konstytucji — początek">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4v30M7 13h26M20 7l-9 6m9-6 9 6M10 14 4 25h12L10 14Zm20 0-6 11h12l-6-11ZM12 35h16"/></svg>
+      <span>PUNKT<br>KONSTYTUCJI<span class="brand-dot">.</span></span>
+    </a>
+    <nav aria-label="Nawigacja główna">
+      <a href="#historia">Oś czasu</a>
+      <a href="#uczestnicy">Kto jest kim</a>
+      <a href="#dzisiaj">Sytuacja dziś <span class="nav-dot"></span></a>
+      <a href="#zrodla">Źródła <span aria-hidden="true">↗</span></a>
+    </nav>
+    <span class="edition">NIEZALEŻNY PRZEWODNIK <span>PL / 2026</span></span>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Otwórz menu"><span></span><span></span></button>
+  </header>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Nawigacja mobilna" hidden><a href="#historia">Oś czasu</a><a href="#uczestnicy">Kto jest kim</a><a href="#dzisiaj">Sytuacja dziś</a><a href="#zrodla">Źródła</a></nav>
+
+  <main>
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="red-square"></span> PAŃSTWO PRAWA. KROK PO KROKU.</p>
+        <h1 id="hero-title">Trybunał.<br>Anatomia<br><em>konfliktu.</em></h1>
+        <p class="hero-lead">Piętnaście miejsc. Ponad dekada sporu.<br>Jak doszliśmy do kryzysu, w którym strażnik<br class="desktop-break"> Konstytucji sam stał się jego częścią?</p>
+        <div class="hero-actions"><a class="button button-dark" href="#historia">Prześledź historię <span>↗</span></a><a class="text-link" href="#dzisiaj">Co dzieje się teraz? <span>→</span></a></div>
+        <p class="hero-note"><span class="small-line"></span> Od początków instytucji po wydarzenia z października 2026.</p>
+      </div>
+      <figure class="hero-art">
+        <div class="art-topline"><span>INSTYTUCJA W CENTRUM SPORU</span><span>01 / PL</span></div>
+        <span class="art-circle" aria-hidden="true"></span>
+        <div class="art-photo"><img src="assets/tribunal.webp" alt="Wejście do siedziby Trybunału Konstytucyjnego przy alei Szucha w Warszawie" width="1600" height="1055" fetchpriority="high"></div>
+        <div class="art-stamp" aria-hidden="true">KONSTYTUCJA RP<span>ART. 194</span></div>
+        <span class="photo-label">WARSZAWA<br>AL. SZUCHA 12A</span>
+        <div class="art-paper"><span class="paper-eyebrow">WSPÓLNE ZASADY. SPORNE DECYZJE.</span><div class="paper-title">Kto pilnuje<br><em>strażnika?</em><span class="paper-arrow">↗</span></div><div class="paper-seats" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="paper-bottom"><span>15 SĘDZIÓW</span><span>JEDNA KONSTYTUCJA</span></div></div>
+        <figcaption>Fot. Adrian Grycuk, 2016 · <a href="#credits">CC BY-SA 3.0 PL</a> · kolaż redakcyjny</figcaption>
+      </figure>
+    </section>
+
+    <div class="intro-strip wrap">
+      <div class="intro-label"><span class="section-number">W PUNKCIE WYJŚCIA</span><span>Zasady są krótkie.<br>Historia jest dłuższa.</span></div>
+      <div class="stat"><strong>15</strong><span>sędziów wybieranych<br>indywidualnie przez Sejm</span></div>
+      <div class="stat"><strong>9<span>lat</span></strong><span>kadencji sędziego,<br>bez ponownego wyboru</span></div>
+      <a class="stat stat-link" href="https://www.sejm.gov.pl/prawo/konst/polski/kon1.htm" target="_blank" rel="noopener noreferrer"><strong>190<span>art.</span></strong><span>orzeczenia są ostateczne<br>i powszechnie obowiązujące <b>↗</b></span></a>
+    </div>
+
+    <section id="historia" class="history section wrap" aria-labelledby="history-title">
+      <div class="section-heading"><div><p class="eyebrow"><span class="section-number">01 / HISTORIA</span> PRZYCZYNY I KONSEKWENCJE</p><h2 id="history-title">To nie stało się<br><em>z dnia na dzień.</em></h2></div><p class="heading-note">Wybierz rozdział. Zobacz decyzje,<br>które prowadziły do kolejnych sporów.<br><span>Każde wydarzenie ma swoje źródło.</span></p></div>
+      <div id="chapter-nav" class="chapter-nav" aria-label="Rozdziały osi czasu"></div>
+      <div class="chapter-overview"><span id="chapter-number">ROZDZIAŁ 02</span><h3 id="chapter-title">Pięć miejsc. Początek kryzysu.</h3><p id="chapter-description"></p></div>
+      <div class="timeline-toolbar"><div id="topic-filters" class="topic-filters" role="group" aria-label="Filtruj wydarzenia według tematu"></div><label class="search"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg><input id="timeline-search" type="search" placeholder="Szukaj w całej historii…" aria-label="Szukaj w całej historii"></label></div>
+      <div class="timeline-meta"><span id="results-count" aria-live="polite"></span><span><i class="key-dot"></i> Kliknij wydarzenie, aby poznać kontekst</span></div>
+      <div id="timeline" class="timeline"></div>
+      <div id="empty-results" class="empty-results" hidden>Nie ma wydarzeń pasujących do wyszukiwania.<button id="clear-search" class="text-link">Wyczyść filtry <span>↗</span></button></div>
+      <div class="chapter-footer"><button id="previous-chapter" class="chapter-arrow">← <span>Poprzedni rozdział</span></button><span id="chapter-position">02 / 06</span><button id="next-chapter" class="chapter-arrow"><span>Następny rozdział</span> →</button></div>
+    </section>
+
+    <section id="piec-miejsc" class="five-section section" aria-labelledby="five-title"><div class="wrap five-layout">
+      <div class="five-copy"><p class="eyebrow"><span class="section-number">02 / SEDNO SPORU</span></p><h2 id="five-title">Pięć miejsc.<br><em>Dwie sytuacje.</em></h2><p>W 2015 roku zmienia się większość w Sejmie. Kadencje pięciorga sędziów kończą się po obu stronach tej zmiany. To rozróżnienie ma zasadnicze znaczenie.</p><p class="subtle">Prześledź trzy kroki i wybierz miejsce, aby zobaczyć, kogo dotyczyło.</p><a class="text-link" href="https://trybunal.gov.pl/fileadmin/content/dokumenty/publikacje/informacje_o_problemach/Informacja2015.pdf" target="_blank" rel="noopener noreferrer">Dokumentacja TK za 2015 rok <span>↗</span></a></div>
+      <div class="seat-explainer"><div class="seat-stepper" role="group" aria-label="Etapy sporu o pięć miejsc"><button data-seat-step="0" aria-pressed="false"><span>01</span> 8 października</button><button data-seat-step="1" aria-pressed="false"><span>02</span> 2 grudnia</button><button data-seat-step="2" aria-pressed="true" class="active"><span>03</span> 3 grudnia</button></div><div class="seat-stage"><div class="stage-heading"><span id="seat-stage-label">WYROK TK · K 34/15</span><span>2015</span></div><h3 id="seat-stage-title">Trzy miejsca ≠ dwa miejsca</h3><div id="five-seats" class="five-seats"></div><div class="seat-group-labels"><span>3 miejsca zwolnione 6 listopada</span><span>2 miejsca zwolnione w grudniu</span></div><p id="seat-stage-description"></p><div id="seat-detail" class="seat-detail" aria-live="polite"></div></div><p class="visual-note">Schemat obejmuje 5 miejsc, których dotyczył spór w 2015 r., z 15 miejsc w TK.</p></div>
+    </div></section>
+
+    <section id="dzisiaj" class="today-section section" aria-labelledby="today-title"><div class="wrap">
+      <div class="today-top"><p class="eyebrow"><span class="section-number">03 / SYTUACJA DZIŚ</span></p><span class="update-date"><i></i> STAN WIEDZY: 17.10.2026</span></div>
+      <div class="today-heading"><h2 id="today-title">Nowy skład.<br><em>Ten sam węzeł.</em></h2><p>Sejm wybiera. Prezydent odbiera ślubowania.<br>Prezes TK dopuszcza do pracy.<br><strong>Spór dotyczy granic tych kompetencji.</strong></p></div>
+      <div class="today-grid"><div class="appointment-flow"><span class="dark-label">DROGA DO ORZEKANIA</span><div class="flow-step"><span class="flow-index">1</span><div><h3>Wybór przez Sejm</h3><p>Konstytucja powierza wybór sędziów Sejmowi.<br>W 2026 r. wybrano osiem osób.</p></div><span class="flow-status">WYBÓR</span></div><div class="flow-step"><span class="flow-index">2</span><div><h3>Ślubowanie „wobec Prezydenta”</h3><p>Spór o to, czy wymagana jest jego fizyczna obecność<br>i czy może wstrzymywać odebranie ślubowania.</p></div><span class="flow-status disputed">SPÓR</span></div><div class="flow-step"><span class="flow-index">3</span><div><h3>Objęcie obowiązków</h3><p>Pięcioro wybranych pozostaje niedopuszczonych<br>do orzekania: czworo od kwietnia i Maciej Berek.</p></div><span class="flow-status disputed">BLOKADA</span></div><a href="https://demagog.org.pl/na-biezaco/czy-berek-jest-juz-sedzia-ciag-dalszy-sporu-o-trybunal-konstytucyjny/" class="dark-source" target="_blank" rel="noopener noreferrer">Kontekst i weryfikacja: Demagog, 14.10.2026 ↗</a></div>
+      <div class="latest-dispatch"><span class="dark-label">OSTATNIE WYDARZENIE W OSI CZASU</span><span class="dispatch-date">16 <span>PAŹDZIERNIKA<br>2026</span></span><h3>Prokuratura zabezpiecza dokumenty i monitoring w TK.</h3><p>Czynności dotyczą m.in. podejrzenia utrudniania objęcia obowiązków. Samo prowadzenie postępowania nie przesądza odpowiedzialności karnej.</p><button class="text-link light" data-event="2026-10-16">Poznaj kontekst <span>↗</span></button></div></div>
+      <div class="today-bottom"><span class="dark-label">CO ZMIENIŁO SIĘ W PAŹDZIERNIKU?</span><p><strong>9–10.10</strong> Komisja Wenecka przyjmuje opinię o ślubowaniach. <span>→</span> <strong>14.10</strong> Maciej Berek składa ślubowanie w Sejmie. <span>→</span> Konflikt o dopuszczenie do pracy trwa.</p></div>
+      <div class="current-sources"><a href="https://www.coe.int/en/web/venice-commission/-/cdl-ad-2026-031-e" target="_blank" rel="noopener noreferrer">Opinia Komisji Weneckiej ↗</a><a href="https://sejm.gov.pl/Sejm10.nsf/komunikat.xsp?documentId=2D8D06C7149A1BF4C1258E90002DBD9A" target="_blank" rel="noopener noreferrer">Komunikat Sejmu, 14.10 ↗</a><a href="https://www.gov.pl/web/prokuratura-krajowa/komunikat-w-sprawie-zakonczenia-czynnosci-TK" target="_blank" rel="noopener noreferrer">Komunikat prokuratury, 16.10 ↗</a></div>
+    </div></section>
+
+    <section id="uczestnicy" class="actors-section section wrap" aria-labelledby="actors-title"><div class="section-heading"><div><p class="eyebrow"><span class="section-number">04 / MAPA UCZESTNIKÓW</span></p><h2 id="actors-title">Kto ma<br><em>jaki ruch?</em></h2></div><p class="heading-note">Partie zmieniają role.<br>Kompetencje instytucji zapisano w prawie.<br><span>Wybierz uczestnika mapy.</span></p></div>
+      <div class="actor-layout"><div class="institution-map" aria-label="Interaktywna mapa instytucji"><svg class="map-lines" viewBox="0 0 620 400" preserveAspectRatio="none" aria-hidden="true"><path d="M135 70 310 200 485 70M135 330 310 200 485 330M310 200v-165"/></svg><button class="map-node node-sejm active" data-actor="sejm" aria-pressed="true"><span class="node-icon">▥</span><strong>Sejm</strong><small>wybiera sędziów</small></button><button class="map-node node-president" data-actor="president" aria-pressed="false"><span class="node-icon">♜</span><strong>Prezydent</strong><small>odbiera ślubowania</small></button><button class="map-node node-tk" data-actor="tk" aria-pressed="false"><span class="node-icon">§</span><strong>Trybunał</strong><small>bada prawo</small></button><button class="map-node node-government" data-actor="government" aria-pressed="false"><span class="node-icon">▤</span><strong>Rząd</strong><small>ogłasza orzeczenia</small></button><button class="map-node node-europe" data-actor="europe" aria-pressed="false"><span class="node-icon">✳</span><strong>ETPC i TSUE</strong><small>kontrolują standardy</small></button></div><div id="actor-detail" class="actor-detail" aria-live="polite"></div></div>
+      <div class="political-context"><span class="section-number">JAK ZMIENIAŁA SIĘ WIĘKSZOŚĆ?</span><div class="political-period"><span class="party-period">DO 2015</span><img src="assets/po.svg" alt="Platforma Obywatelska" loading="lazy"><img class="psl-logo" src="assets/psl.svg" alt="Polskie Stronnictwo Ludowe" loading="lazy"><span>większość PO–PSL</span></div><span class="period-arrow" aria-hidden="true">→</span><div class="political-period"><span class="party-period">2015–2023</span><img src="assets/pis.svg" alt="Prawo i Sprawiedliwość" loading="lazy"><span>większość Zjednoczonej Prawicy</span></div><span class="period-arrow" aria-hidden="true">→</span><div class="political-period"><span class="party-period">OD 2023</span><div class="coalition-logos"><img src="assets/ko.svg" alt="Koalicja Obywatelska" loading="lazy"><img class="psl-logo" src="assets/psl.svg" alt="PSL" loading="lazy"><img src="assets/lewica.svg" alt="Lewica" loading="lazy"></div><span>nowa koalicja rządowa*</span></div></div><p class="political-note">*W 2023 r. rząd utworzyły KO, Trzecia Droga (PSL i Polska 2050) oraz Nowa Lewica. Logotypy pomagają rozpoznać środowiska; mapa nie przypisuje sędziom członkostwa w partiach.</p>
+    </section>
+
+    <section class="meaning-section section"><div class="wrap"><p class="eyebrow"><span class="section-number">05 / STAWKA KONFLIKTU</span></p><div class="meaning-layout"><h2>Dlaczego to<br>dotyczy <em>Ciebie?</em></h2><div class="meaning-items"><article><span>01</span><div><h3>Twoje prawa potrzebują kontroli ustaw.</h3><p>Skarga konstytucyjna pozwala kwestionować przepis, na podstawie którego ostatecznie rozstrzygnięto o Twoich konstytucyjnych prawach. Nie jest kolejną apelacją od wyroku.</p></div></article><article><span>02</span><div><h3>Skład sądu wpływa na zaufanie do wyroku.</h3><p>W sprawie Xero Flor ETPC stwierdził naruszenie prawa do sądu ustanowionego ustawą ze względu na wadę wyboru osoby zasiadającej w składzie TK.</p></div></article><article><span>03</span><div><h3>Spór instytucji ma realne skutki.</h3><p>Wyrok K 1/20 zmienił zakres dopuszczalnej aborcji. Spory o ogłaszanie orzeczeń i obsadę TK utrudniają przewidywanie, jak organy państwa zastosują prawo.</p></div></article></div></div><div class="meaning-sources"><a href="https://www.sejm.gov.pl/prawo/konst/polski/kon1.htm" target="_blank" rel="noopener noreferrer">Konstytucja, art. 79, 188–197 ↗</a><a href="https://hudoc.echr.coe.int/eng?i=001-210065" target="_blank" rel="noopener noreferrer">ETPC: Xero Flor ↗</a><button data-event="2020-10-22">Wyrok K 1/20 i jego skutki ↗</button></div></div></section>
+
+    <section id="zrodla" class="sources-section section wrap" aria-labelledby="sources-title"><div class="section-heading"><div><p class="eyebrow"><span class="section-number">06 / SPRAWDŹ SAMODZIELNIE</span></p><h2 id="sources-title">Dokumenty,<br><em>nie domysły.</em></h2></div><div class="source-intro"><p>Wyroki, ustawy i komunikaty instytucji stanowią podstawę tej opowieści. Stanowisko strony sporu oznaczamy jako stanowisko. Opinia Komisji Weneckiej jest opinią doradczą; zabezpieczenie ETPC nie jest końcowym wyrokiem.</p><span>OSTATNIA WERYFIKACJA: 17 PAŹDZIERNIKA 2026</span></div></div>
+      <div class="source-controls"><label for="source-filter">Dokumenty</label><select id="source-filter"><option value="all">Wszystkie instytucje</option><option value="tk">Trybunał Konstytucyjny</option><option value="pl">Polskie instytucje</option><option value="eu">Instytucje europejskie</option><option value="analysis">Analizy i weryfikacja</option></select><span id="source-count"></span></div><div id="source-list" class="source-list"></div>
+      <details class="methodology"><summary>Jak czytać tę stronę? Metoda, zakres i oznaczenia <span>+</span></summary><div><p>To syntetyczny przewodnik po głównych etapach historii instytucji i konfliktu, a nie katalog każdej sprawy TK. Daty dotyczą wydarzeń; data publikacji orzeczenia jest wskazana oddzielnie, kiedy ma znaczenie. Opisy skutków są redakcyjną syntezą przywołanych dokumentów.</p><p>Kolory oznaczają uczestników lub tematy, nie ocenę ich działań. Określenie „dubler” objaśniamy w kontekście obsadzenia miejsc już zajętych. Wyroki ETPC i TSUE opisujemy w granicach rozstrzygniętych spraw. Strona jest migawką stanu wiedzy z 17.10.2026 i nie aktualizuje się automatycznie.</p><p>Przewodnik jest niezależnym opracowaniem edukacyjnym. Nie jest oficjalną stroną TK ani żadnej partii.</p></div></details>
+      <details id="credits" class="methodology"><summary>Fotografia, logotypy i prawa do materiałów <span>+</span></summary><div><p>Fotografia: <a href="https://commons.wikimedia.org/wiki/File:Trybuna%C5%82_Konstytucyjny_wej%C5%9Bcie.JPG" target="_blank" rel="noopener noreferrer">Adrian Grycuk, „Trybunał Konstytucyjny wejście”, 22.01.2016</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/pl/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0 PL</a>. Zdjęcie zmniejszono; w kolażu użyto kadrowania i filtra czarno-białego. Opracowanie fotografii udostępniane jest na tej samej licencji.</p><p>Znaki partii służą identyfikacji w materiale edukacyjnym i nie oznaczają poparcia dla opracowania. Pliki z Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Logo_of_the_Law_and_Justice.svg" target="_blank" rel="noopener noreferrer">PiS (CC0)</a>, <a href="https://commons.wikimedia.org/wiki/File:Platforma_Obywatelska_wordmark.svg" target="_blank" rel="noopener noreferrer">PO</a>, <a href="https://commons.wikimedia.org/wiki/File:Logo_Koalicja_Obywatelska_2023.svg" target="_blank" rel="noopener noreferrer">KO</a>, <a href="https://commons.wikimedia.org/wiki/File:Logo_of_the_Polish_People%27s_Party_(2019_color).svg" target="_blank" rel="noopener noreferrer">PSL</a>, <a href="https://commons.wikimedia.org/wiki/File:Lewica_01.svg" target="_blank" rel="noopener noreferrer">Lewica</a>. Szczegóły licencji na stronach plików.</p></div></details>
+    </section>
+  </main>
+  <footer class="site-footer wrap"><a class="footer-brand" href="#">PUNKT KONSTYTUCJI<span>.</span></a><span>Zrozumieć zasady. Zobaczyć całość.</span><a href="#">Wróć na górę ↑</a><p>Opracowanie edukacyjne · 1982–2026 · Stan wiedzy na 17.10.2026</p></footer>
+  <dialog id="event-dialog" aria-labelledby="dialog-title"><div class="dialog-content"><div class="dialog-top"><span id="dialog-category" class="event-tag"></span><button id="close-dialog" aria-label="Zamknij szczegóły wydarzenia">×</button></div><p id="dialog-date" class="eyebrow"></p><h2 id="dialog-title"></h2><div id="dialog-body"></div><div class="dialog-nav"><button id="dialog-prev" aria-label="Poprzednie wydarzenie">← Poprzednie</button><span id="dialog-position"></span><button id="dialog-next" aria-label="Następne wydarzenie">Następne →</button></div></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
