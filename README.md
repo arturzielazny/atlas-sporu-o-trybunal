@@ -24,11 +24,14 @@ npm run check
 - Interaktywny schemat pięciu miejsc z 2015 roku.
 - Aktualny kontekst i mapa kompetencji instytucji.
 - Bibliografia z filtrem instytucji, metoda opracowania i licencje materiałów.
+- Najpierw skrót konfliktu i obecna sytuacja; pełna oś czasu na końcu strony.
+- Pomarańczowe oznaczenia PO/KO i granatowe PiS, wraz z logotypami przy wydarzeniach. Osobne kolory dla oceny podstaw prawnych w schemacie z 2015 r.
+- Najmniejszy tekst ma co najmniej 12 px; opisy i drobne elementy interfejsu zostały powiększone także na telefonach.
 - Linki do wydarzeń poprzez parametr `?event=2026-10-16`; filtry zapisują się w URL.
 
 ## Aktualizacja treści
 
-Źródła, rozdziały, wydarzenia i uczestnicy: `dist/data.js`. Interakcje: `dist/app.js`. Układ: `dist/index.html`, wygląd: `dist/style.css`.
+Źródła, rozdziały, wydarzenia i uczestnicy: `dist/data.js`. Interakcje: `dist/app.js`. Układ: `dist/index.html`, wygląd: `dist/style.css` oraz `dist/overview.css`.
 
 Treści są statyczną migawką. Aktualizacja wymaga ponownej weryfikacji źródeł i daty stanu wiedzy, w tym sekcji sytuacji bieżącej w HTML. Strona odróżnia fakty, stanowiska instytucji, orzeczenia i niewiążące opinie.
 

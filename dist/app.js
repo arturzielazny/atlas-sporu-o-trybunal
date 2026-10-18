@@ -5,6 +5,16 @@ const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({'&':'&am
 const sourceById = id => SOURCES.find(source => source.id === id);
 const topics = {all:'Wszystko',wybory:'Skład i wybory',wyroki:'Wyroki',europa:'Europa',zasady:'Reguły gry'};
 const topicNames = {wybory:'Skład i wybory',wyroki:'Orzeczenie TK',europa:'Wymiar europejski',zasady:'Reguły gry'};
+const politicalParties = {
+  po: {name:'PO / większość PO–PSL',logo:'assets/po.svg',alt:'PO'},
+  ko: {name:'KO / koalicja rządowa',logo:'assets/ko.svg',alt:'KO'},
+  pis: {name:'Obóz PiS',logo:'assets/pis.svg',alt:'PiS'}
+};
+function partyBadge(event) {
+  const party = politicalParties[event.color];
+  if (!party) return `<span class="party-badge"><i class="${event.color}" aria-hidden="true"></i>${event.actor}</span>`;
+  return `<span class="party-badge party-badge-${event.color}" title="Oznaczenie obozu politycznego; nie przynależności partyjnej sędziego"><img src="${party.logo}" alt="${party.alt}" width="60" height="24"><span>${event.actor}</span></span>`;
+}
 const params = new URLSearchParams(location.search);
 const state = {
   chapter: CHAPTERS.some(chapter => chapter.id === params.get('chapter')) ? params.get('chapter') : '2015',
@@ -53,7 +63,7 @@ function renderTimeline() {
   renderChapters();
   const events = getVisibleEvents();
   $('#results-count').textContent = `${events.length} ${events.length === 1 ? 'wydarzenie' : events.length > 1 && events.length < 5 ? 'wydarzenia' : 'wydarzeń'} · ${state.search ? 'wszystkie rozdziały' : CHAPTERS.find(chapter => chapter.id === state.chapter).years}`;
-  $('#timeline').innerHTML = events.map(event => `<article class="timeline-event"><div class="event-date"><time datetime="${event.id}">${event.date}</time><span>${event.year}</span></div><i class="event-dot" aria-hidden="true"></i><div class="event-card"><div class="event-card-top"><span class="event-tag tag-${event.type}">${topicNames[event.type]}</span><span class="party-badge"><i class="${event.color}" aria-hidden="true"></i>${event.actor}</span></div><h4>${event.title}</h4><p>${event.summary}</p><div class="event-card-bottom"><p class="event-effect"><strong>ZNACZENIE</strong><span>${event.effect}</span></p><button class="event-open" data-event="${event.id}" aria-label="Szczegóły: ${escapeHtml(event.title)}">Czytaj dalej <span>↗</span></button></div></div></article>`).join('');
+  $('#timeline').innerHTML = events.map(event => `<article class="timeline-event" data-party="${politicalParties[event.color] ? event.color : 'neutral'}"><div class="event-date"><time datetime="${event.id}">${event.date}</time><span>${event.year}</span></div><i class="event-dot" aria-hidden="true"></i><div class="event-card"><div class="event-card-top"><span class="event-tag tag-${event.type}">${topicNames[event.type]}</span>${partyBadge(event)}</div><h4>${event.title}</h4><p>${event.summary}</p><div class="event-card-bottom"><p class="event-effect"><strong>ZNACZENIE</strong><span>${event.effect}</span></p><button class="event-open" data-event="${event.id}" aria-label="Szczegóły: ${escapeHtml(event.title)}">Czytaj dalej <span>↗</span></button></div></div></article>`).join('');
   $('#empty-results').hidden = events.length !== 0;
   updateUrl({chapter:state.chapter,topic:state.topic === 'all' ? null : state.topic,q:state.search || null});
 }
@@ -93,7 +103,8 @@ function openEvent(id) {
   $('#dialog-category').className = `event-tag tag-${event.type}`;
   $('#dialog-date').textContent = `${event.date} ${event.year} · ${event.actor}`;
   $('#dialog-title').textContent = event.title;
-  $('#dialog-body').innerHTML = `<p class="dialog-lead">${event.summary}</p><h3>Co się wydarzyło?</h3><p class="dialog-detail">${event.detail}</p><div class="dialog-consequence"><strong>Co to zmieniło?</strong>${event.effect}</div>${event.positionNote?`<p class="dialog-position-note">${event.positionNote}</p>`:''}<h3>Sprawdź źródła</h3>${event.sources.map(id=>{const source=sourceById(id);return `<a class="dialog-source" href="${source.url}" target="_blank" rel="noopener noreferrer"><span>${source.title}<br><small>${source.institution} · ${source.date}</small></span><span>↗</span></a>`;}).join('')}`;
+  $('#event-dialog').dataset.party = politicalParties[event.color] ? event.color : 'neutral';
+  $('#dialog-body').innerHTML = `${politicalParties[event.color]?`<div class="dialog-party">${partyBadge(event)}</div>`:''}<p class="dialog-lead">${event.summary}</p><h3>Co się wydarzyło?</h3><p class="dialog-detail">${event.detail}</p><div class="dialog-consequence"><strong>Co to zmieniło?</strong>${event.effect}</div>${event.positionNote?`<p class="dialog-position-note">${event.positionNote}</p>`:''}<h3>Sprawdź źródła</h3>${event.sources.map(id=>{const source=sourceById(id);return `<a class="dialog-source" href="${source.url}" target="_blank" rel="noopener noreferrer"><span>${source.title}<br><small>${source.institution} · ${source.date}</small></span><span>↗</span></a>`;}).join('')}`;
   $('#dialog-prev').disabled = index === 0;
   $('#dialog-next').disabled = index === EVENTS.length-1;
   $('#dialog-position').textContent = `${index+1} / ${EVENTS.length}`;
@@ -115,9 +126,9 @@ $('#dialog-next').addEventListener('click',() => {if(state.eventIndex<EVENTS.len
 
 const seatIcon = '<svg viewBox="0 0 30 30" aria-hidden="true"><path d="M7 21v-7m16 7v-7M10 16V8a5 5 0 0 1 10 0v8M8 22h14v-6H8v6Zm2 0v5m10-5v5M4 14h6m10 0h6"/></svg>';
 const seatSteps = [
-  {label:'WYBÓR SEJMU VII KADENCJI',title:'Jeden wybór obejmuje pięć miejsc.',description:'PO–PSL popiera wybór całej piątki. Trzy kadencje kończą się jeszcze w czasie starego Sejmu, dwie już za nowego. Prezydent nie odbiera ślubowań.',classes:['blue','blue','blue','orange','orange'],names:['Roman Hauser','Andrzej Jakubecki','Krzysztof Ślebzak','Bronisław Sitek','Andrzej Sokala'],statuses:['Listopad','Listopad','Listopad','Grudzień','Grudzień']},
-  {label:'PONOWNY WYBÓR SEJMU VIII KADENCJI',title:'Nowa większość wybiera kolejną piątkę.',description:'Sejm z większością PiS wybiera pięć osób. Trzy wybory nakładają się na obsadzone miejsca listopadowe. To źródło określenia „dublerzy”.',classes:['red','red','red','blue','blue'],names:['Henryk Cioch','Lech Morawski','Mariusz Muszyński','Piotr Pszczółkowski','Julia Przyłębska'],statuses:['Spór','Spór','Spór','Wybór','Wybór']},
-  {label:'WYROK TK · K 34/15',title:'Trzy miejsca ≠ dwa miejsca',description:'TK rozróżnia podstawy prawne: zgodna z Konstytucją dla trzech miejsc listopadowych, niezgodna dla dwóch grudniowych. Wyrok kontroluje przepisy ustawy.',classes:['blue','blue','blue','orange','orange'],names:['Roman Hauser','Andrzej Jakubecki','Krzysztof Ślebzak','Bronisław Sitek','Andrzej Sokala'],statuses:['Zgodna','Zgodna','Zgodna','Niezgodna','Niezgodna']}
+  {party:'po',label:'WYBÓR SEJMU VII KADENCJI',title:'Jeden wybór obejmuje pięć miejsc.',description:'PO–PSL popiera wybór całej piątki. Trzy kadencje kończą się jeszcze w czasie starego Sejmu, dwie już za nowego. Prezydent nie odbiera ślubowań.',classes:['orange','orange','orange','orange','orange'],names:['Roman Hauser','Andrzej Jakubecki','Krzysztof Ślebzak','Bronisław Sitek','Andrzej Sokala'],statuses:['Listopad','Listopad','Listopad','Grudzień','Grudzień'],shortStatuses:['XI','XI','XI','XII','XII']},
+  {party:'pis',label:'PONOWNY WYBÓR SEJMU VIII KADENCJI',title:'Nowa większość wybiera kolejną piątkę.',description:'Sejm z większością PiS wybiera pięć osób. Trzy wybory nakładają się na obsadzone miejsca listopadowe. To źródło określenia „dublerzy”.',classes:['blue disputed-seat','blue disputed-seat','blue disputed-seat','blue','blue'],names:['Henryk Cioch','Lech Morawski','Mariusz Muszyński','Piotr Pszczółkowski','Julia Przyłębska'],statuses:['Spór','Spór','Spór','Wybór','Wybór']},
+  {label:'WYROK TK · K 34/15',title:'Trzy miejsca ≠ dwa miejsca',description:'TK rozróżnia podstawy prawne: zgodna z Konstytucją dla trzech miejsc listopadowych (✓), niezgodna dla dwóch grudniowych (×). Wyrok kontroluje przepisy ustawy.',classes:['green','green','green','red','red'],names:['Roman Hauser','Andrzej Jakubecki','Krzysztof Ślebzak','Bronisław Sitek','Andrzej Sokala'],statuses:['Zgodna','Zgodna','Zgodna','Niezgodna','Niezgodna'],shortStatuses:['✓','✓','✓','×','×']}
 ];
 
 function renderSeats() {
@@ -126,7 +137,8 @@ function renderSeats() {
   $('#seat-stage-label').textContent=step.label;
   $('#seat-stage-title').textContent=step.title;
   $('#seat-stage-description').textContent=step.description;
-  $('#five-seats').innerHTML=step.names.map((name,index)=>`<button class="seat ${step.classes[index]} ${index===state.seatSelected?'selected':''}" data-seat="${index}" aria-pressed="${index===state.seatSelected}" aria-label="${name}: ${step.statuses[index]}">${seatIcon}<span>${step.statuses[index]}</span></button>`).join('');
+  $('#seat-party').innerHTML=step.party?partyBadge({color:step.party,actor:politicalParties[step.party].name}):'<span>Ocena podstawy prawnej wyboru</span>';
+  $('#five-seats').innerHTML=step.names.map((name,index)=>`<button class="seat ${step.classes[index]} ${index===state.seatSelected?'selected':''}" data-seat="${index}" aria-pressed="${index===state.seatSelected}" aria-label="${name}: ${step.statuses[index]}" title="${name}: ${step.statuses[index]}">${seatIcon}<span>${step.shortStatuses?.[index]||step.statuses[index]}</span></button>`).join('');
   if(state.seatSelected<0)$('#seat-detail').innerHTML='<strong>Każde miejsce ma swoją historię.</strong>Wybierz jeden z pięciu foteli, aby zobaczyć nazwisko i kontekst.';
   else {
     const index=state.seatSelected;
