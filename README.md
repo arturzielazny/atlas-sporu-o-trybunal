@@ -19,10 +19,11 @@ npm run check
 ## Zawartość
 
 - Chronologia w sześciu rozdziałach: 1982–2026.
-- Jedna opowieść do przewijania: wszystkie sześć rozdziałów i 37 wydarzeń są widoczne w kolejności, bez przełączania stron i skrótów między sekcjami.
+- Jedna opowieść do przewijania: wszystkie sześć rozdziałów i 38 wydarzeń są widoczne w kolejności, bez przełączania stron i skrótów między sekcjami.
 - Kontekst wydarzeń rozwija się bezpośrednio przy opisach; źródła są odnośnikami zewnętrznymi.
-- Sekcja 02 rozpoczyna się od 8 października. Wyraźne przyciski odsłaniają kolejno 2 i 3 grudnia poniżej, zachowując wcześniej przeczytane etapy. Przycisk nie przewija strony automatycznie.
+- Sekcja 02 rozpoczyna się od 8 października. Wyraźne przyciski odsłaniają poniżej kolejne etapy: 2 grudnia, 3 grudnia oraz następstwa wyroku w latach 2015–2016, zachowując wcześniej przeczytane etapy. Przycisk nie przewija strony automatycznie.
 - Trzeci krok oddziela autora oceny (TK, K 34/15), jej przedmiot (podstawę wyboru PO–PSL z 8 października) i wynik dla trzech oraz dwóch osób, wraz z nazwiskami i uzasadnieniem.
+- Czwarty krok wyjaśnia niewykonanie wyroku w praktyce: brak ślubowań prawidłowo wybranej trójki i dopuszczenie spornej trójki do orzekania 20 grudnia 2016 r.; odróżnia też dwa grudniowe miejsca. Źródła: K 35/15, informacja TK za 2015 r. oraz wyrok ETPC Xero Flor.
 - Aktualny kontekst i mapa kompetencji; opisy wszystkich pięciu instytucji są widoczne jeden pod drugim.
 - Bibliografia z filtrem instytucji, metoda opracowania i licencje materiałów.
 - Najpierw skrót konfliktu i schemat pięciu miejsc wyjaśniający jego początek, następnie obecna sytuacja; pełna oś czasu na końcu strony.
