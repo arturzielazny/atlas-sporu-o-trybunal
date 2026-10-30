@@ -2,6 +2,8 @@
 
 Polskojęzyczny, interaktywny przewodnik po historii polskiego Trybunału Konstytucyjnego i konflikcie wokół niego. Stan wiedzy: **30 października 2026 r. (wieczór)**
 
+Strona: [arturzielazny.github.io/atlas-sporu-o-trybunal](https://arturzielazny.github.io/atlas-sporu-o-trybunal/).
+
 ## Uruchomienie
 
 Wymagany Python 3. Nie ma zależności aplikacji ani etapu budowania.
@@ -15,6 +17,12 @@ Strona: http://localhost:4173. Pliki gotowe do hostowania są w `dist/`.
 ```sh
 npm run check
 ```
+
+## Publikacja na GitHub Pages
+
+Każdy push do `main` uruchamia workflow `.github/workflows/pages.yml`: sprawdza składnię JavaScript i publikuje zawartość `dist/` na GitHub Pages. Publikację można też uruchomić ręcznie w zakładce Actions. Nie ma etapu budowania ani zależności do instalacji.
+
+Przed zatwierdzeniem zmian w stylach lub skryptach uruchom `npm run bump`, aby zaktualizować znaczniki wersji plików. Status publikacji jest widoczny w workflow „Deploy GitHub Pages”.
 
 ## Zawartość
 
