@@ -5,6 +5,7 @@
   "description": "Interaktywny przewodnik po historii konfliktu o Trybunał Konstytucyjny.",
   "scripts": {
     "dev": "python3 -m http.server 4173 --directory dist --bind 0.0.0.0",
-    "check": "node --check dist/app.js && node --check dist/data.js"
+    "check": "node --check dist/app.js && node --check dist/data.js",
+    "bump": "sed -i -E \"s/(href|src)=\\\"([a-z]+\\.(css|js))(\\?v=[^\\\"]*)?\\\"/\\1=\\\"\\2?v=$(date +%Y%m%d%H%M)\\\"/g\" dist/index.html"
   }
 }

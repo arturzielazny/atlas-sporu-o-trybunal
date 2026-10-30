@@ -9,6 +9,21 @@ const politicalParties = {
   pis:{name:'Obóz PiS',logo:'assets/pis.svg',alt:'PiS'}
 };
 
+const isNew = item => item.added === UPDATE.date;
+const isUpdated = item => item.updated === UPDATE.date;
+
+function changeBadge(item) {
+  if(isNew(item))return `<span class="new-badge">Nowe · ${UPDATE.label}</span>`;
+  if(isUpdated(item))return `<span class="new-badge new-badge-updated">Zmienione · ${UPDATE.label}</span>`;
+  return '';
+}
+
+function newEventsLabel(count) {
+  if(count===1)return '1 nowe wydarzenie';
+  const lastDigit=count%10,lastTwo=count%100;
+  return `${count} ${lastDigit>=2&&lastDigit<=4&&(lastTwo<12||lastTwo>14)?'nowe wydarzenia':'nowych wydarzeń'}`;
+}
+
 function partyBadge(event) {
   const party=politicalParties[event.color];
   if(!party)return `<span class="party-badge"><i class="${event.color}" aria-hidden="true"></i>${event.actor}</span>`;
@@ -24,7 +39,14 @@ function eventContext(event,summary='Rozwiń kontekst wydarzenia') {
 }
 
 function renderTimeline() {
-  $('#timeline').innerHTML=CHAPTERS.map((chapter,index)=>`<section class="history-chapter" aria-labelledby="history-chapter-${chapter.id}"><header class="history-chapter-heading"><p>ROZDZIAŁ ${String(index+1).padStart(2,'0')} / 06 <span>${chapter.years}</span></p><h3 id="history-chapter-${chapter.id}">${chapter.title}</h3><p>${chapter.description}</p></header><div class="chapter-events">${EVENTS.filter(event=>event.chapter===chapter.id).map(event=>`<article class="timeline-event" data-party="${politicalParties[event.color]?event.color:'neutral'}"><div class="event-date"><time datetime="${event.id}">${event.date}</time><span>${event.year}</span></div><i class="event-dot" aria-hidden="true"></i><div class="event-card"><div class="event-card-top"><span class="event-tag tag-${event.type}">${topicNames[event.type]}</span>${partyBadge(event)}</div><h4>${event.title}</h4><p>${event.summary}</p><p class="event-effect"><strong>ZNACZENIE</strong><span>${event.effect}</span></p>${eventContext(event)}</div></article>`).join('')}</div></section>`).join('');
+  $('#timeline').innerHTML=CHAPTERS.map((chapter,index)=>`<section class="history-chapter" aria-labelledby="history-chapter-${chapter.id}"><header class="history-chapter-heading"><p>ROZDZIAŁ ${String(index+1).padStart(2,'0')} / 06 <span>${chapter.years}</span></p><h3 id="history-chapter-${chapter.id}">${chapter.title}</h3><p>${chapter.description}</p>${EVENTS.some(event=>event.chapter===chapter.id&&isNew(event))?`<p class="chapter-update">${changeBadge(chapter)} W tym rozdziale: ${newEventsLabel(EVENTS.filter(event=>event.chapter===chapter.id&&isNew(event)).length)} od wersji z ${UPDATE.previous}.</p>`:''}</header><div class="chapter-events">${EVENTS.filter(event=>event.chapter===chapter.id).map(event=>`<article id="wydarzenie-${event.id}" class="timeline-event${isNew(event)?' is-new':''}" data-party="${politicalParties[event.color]?event.color:'neutral'}"><div class="event-date"><time datetime="${event.id.slice(0,10)}">${event.date}</time><span>${event.year}</span></div><i class="event-dot" aria-hidden="true"></i><div class="event-card">${isNew(event)?`<p class="event-new">${changeBadge(event)}</p>`:''}<div class="event-card-top"><span class="event-tag tag-${event.type}">${topicNames[event.type]}</span>${partyBadge(event)}</div><h4>${event.title}</h4><p>${event.summary}</p><p class="event-effect"><strong>ZNACZENIE</strong><span>${event.effect}</span></p>${eventContext(event)}</div></article>`).join('')}</div></section>`).join('');
+}
+
+function renderLatest() {
+  const added=EVENTS.filter(isNew).reverse();
+  const card=event=>`<li class="latest-item" data-party="${politicalParties[event.color]?event.color:'neutral'}"><a href="#wydarzenie-${event.id}"><time datetime="${event.id.slice(0,10)}">${event.date} ${event.year}</time><strong>${event.title}</strong><span class="latest-item-effect">${event.effect}</span><span class="latest-item-more">Pełny opis w historii <span aria-hidden="true">↓</span></span></a></li>`;
+  $('#latest-today').innerHTML=added.filter(event=>event.id.startsWith(UPDATE.date)).map(card).join('');
+  $('#latest-earlier').innerHTML=added.filter(event=>!event.id.startsWith(UPDATE.date)).map(card).join('');
 }
 
 const seatIcon='<svg viewBox="0 0 30 30" aria-hidden="true"><path d="M7 21v-7m16 7v-7M10 16V8a5 5 0 0 1 10 0v8M8 22h14v-6H8v6Zm2 0v5m10-5v5M4 14h6m10 0h6"/></svg>';
@@ -49,7 +71,7 @@ function renderAftermath() {
 }
 
 function renderSeatStory() {
-  $('#seat-story-steps').innerHTML=seatSteps.map((step,index)=>`<article id="seat-step-${index+1}" class="seat-story-step ${index===2?'seat-story-judgment':''}" data-story-step="${index+1}" ${index>0?'hidden':''} aria-labelledby="seat-story-title-${index+1}"><header class="story-step-header"><span class="story-step-number">${index+1}</span><div><p>KROK ${index+1} Z ${seatSteps.length}</p>${step.iso?`<time datetime="${step.iso}">${step.date}</time>`:`<span class="story-step-date">${step.date}</span>`}</div></header><p class="story-step-label">${step.label}</p><h3 id="seat-story-title-${index+1}" tabindex="-1">${step.title}</h3>${index<2?`<div class="story-step-party">${partyBadge({color:step.party,actor:politicalParties[step.party].name})}</div><p class="story-step-description">${step.description}</p>${renderSeatsForStep(step)}<div class="story-step-consequence"><strong>Dlaczego to ważne?</strong><p>${step.consequence}</p></div>`:index===2?renderJudgment():renderAftermath()}<details class="story-step-sources"><summary>Dokumenty do tego kroku <span aria-hidden="true">+</span></summary>${sourceLinks(step.sources)}</details>${index<seatSteps.length-1?`<div class="story-step-next"><p>To jeszcze nie koniec. <strong>Naciśnij przycisk, żeby odsłonić dalszy ciąg poniżej.</strong></p><button type="button" class="reveal-step ${index===0?'reveal-pis':index===1?'reveal-judgment':'reveal-aftermath'}" data-reveal-step="${index+2}" aria-controls="seat-step-${index+2}" aria-expanded="false"><span>Kliknij, aby odsłonić krok ${index+2}<small>${seatSteps[index+1].date} · ${seatSteps[index+1].nextLabel||'Ponowny wybór PiS'}</small></span><span aria-hidden="true">↓</span></button></div>`:`<p class="story-complete"><span aria-hidden="true">✓</span> Znasz cztery etapy. Przewijaj dalej — teraz zobaczysz obecną sytuację.</p>`}</article>`).join('');
+  $('#seat-story-steps').innerHTML=seatSteps.map((step,index)=>`<article id="seat-step-${index+1}" class="seat-story-step ${index===2?'seat-story-judgment':''}" data-story-step="${index+1}" ${index>0?'hidden':''} aria-labelledby="seat-story-title-${index+1}"><header class="story-step-header"><span class="story-step-number">${index+1}</span><div><p>KROK ${index+1} Z ${seatSteps.length}</p>${step.iso?`<time datetime="${step.iso}">${step.date}</time>`:`<span class="story-step-date">${step.date}</span>`}</div></header><p class="story-step-label">${step.label}</p><h3 id="seat-story-title-${index+1}" tabindex="-1">${step.title}</h3>${index<2?`<div class="story-step-party">${partyBadge({color:step.party,actor:politicalParties[step.party].name})}</div><p class="story-step-description">${step.description}</p>${renderSeatsForStep(step)}<div class="story-step-consequence"><strong>Dlaczego to ważne?</strong><p>${step.consequence}</p></div>`:index===2?renderJudgment():renderAftermath()}<details class="story-step-sources"><summary>Dokumenty do tego kroku <span aria-hidden="true">+</span></summary>${sourceLinks(step.sources)}</details>${index<seatSteps.length-1?`<div class="story-step-next"><p>To jeszcze nie koniec. <strong>Naciśnij przycisk, żeby odsłonić dalszy ciąg poniżej.</strong></p><button type="button" class="reveal-step ${index===0?'reveal-pis':index===1?'reveal-judgment':'reveal-aftermath'}" data-reveal-step="${index+2}" aria-controls="seat-step-${index+2}" aria-expanded="false"><span>Kliknij, aby odsłonić krok ${index+2}<small>${seatSteps[index+1].date} · ${seatSteps[index+1].nextLabel||'Ponowny wybór PiS'}</small></span><span aria-hidden="true">↓</span></button></div>`:`<p class="story-complete"><span aria-hidden="true">✓</span> Znasz cztery etapy. Przewijaj dalej — zobaczysz, kto ma jaki ruch.</p>`}</article>`).join('');
 }
 
 $('#seat-story-steps').addEventListener('click',event=>{
@@ -67,14 +89,14 @@ $('#seat-story-steps').addEventListener('click',event=>{
 });
 
 function renderActors() {
-  $('#actor-list').innerHTML=Object.entries(ACTORS).map(([id,actor],index)=>`<article class="actor-reading-card" aria-labelledby="actor-title-${id}"><p class="actor-reading-label"><span>${String(index+1).padStart(2,'0')}</span>${actor.label}</p><h3 id="actor-title-${id}">${actor.title}</h3><p>${actor.description}</p><div class="actor-reading-context"><strong>Rola w konflikcie</strong><p>${actor.context}</p></div><a class="text-link" href="${sourceById(actor.source).url}" target="_blank" rel="noopener noreferrer">${actor.link} <span aria-hidden="true">↗</span></a></article>`).join('');
+  $('#actor-list').innerHTML=Object.entries(ACTORS).map(([id,actor],index)=>`<article class="actor-reading-card" aria-labelledby="actor-title-${id}"><p class="actor-reading-label"><span>${String(index+1).padStart(2,'0')}</span>${actor.label}</p>${changeBadge(actor)}<h3 id="actor-title-${id}">${actor.title}</h3><p>${actor.description}</p><div class="actor-reading-context"><strong>Rola w konflikcie</strong><p>${actor.context}</p></div><a class="text-link" href="${sourceById(actor.source).url}" target="_blank" rel="noopener noreferrer">${actor.link} <span aria-hidden="true">↗</span></a></article>`).join('');
 }
 
 function renderSources() {
   const filter=$('#source-filter').value;
-  const sources=SOURCES.filter(source=>filter==='all'||source.group===filter);
+  const sources=SOURCES.filter(source=>filter==='all'||(filter==='new'?isNew(source):source.group===filter));
   $('#source-count').textContent=`${sources.length} dokumentów`;
-  $('#source-list').innerHTML=sources.map(source=>`<a class="source-item" href="${source.url}" target="_blank" rel="noopener noreferrer"><span>${String(SOURCES.indexOf(source)+1).padStart(2,'0')}</span><div><h3>${source.title}</h3><p>${source.date} · ${source.note}</p></div><span class="source-institution">${source.institution}</span><span class="source-arrow" aria-hidden="true">↗</span></a>`).join('');
+  $('#source-list').innerHTML=sources.map(source=>`<a class="source-item" href="${source.url}" target="_blank" rel="noopener noreferrer"><span>${String(SOURCES.indexOf(source)+1).padStart(2,'0')}</span><div>${changeBadge(source)}<h3>${source.title}</h3><p>${source.date} · ${source.note}</p></div><span class="source-institution">${source.institution}</span><span class="source-arrow" aria-hidden="true">↗</span></a>`).join('');
 }
 $('#source-filter').addEventListener('change',renderSources);
 
@@ -87,6 +109,7 @@ document.addEventListener('toggle',()=>requestAnimationFrame(updateProgress),tru
 
 renderSeatStory();
 renderTimeline();
+renderLatest();
 renderActors();
 renderSources();
 document.querySelectorAll('[data-inline-event]').forEach(container=>{const event=EVENTS.find(event=>event.id===container.dataset.inlineEvent);if(event)container.innerHTML=eventContext(event);});
